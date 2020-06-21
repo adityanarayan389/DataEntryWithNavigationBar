@@ -23,7 +23,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private DrawerLayout nDrawerLayout;
     private SharedPreferences prefManager;
     private SharedPreferences.Editor editor;
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         prefManager = getSharedPreferences("APP_NAME", MODE_PRIVATE);
         editor = prefManager.edit();
+
+        databaseHelper = new DatabaseHelper(NavigationActivity.this);
     }
 
     @Override
@@ -64,8 +66,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 break;
             case R.id.menu_view:
 
-                ArrayList<Student> students = dbHelper.getDataFromDatabase(dbHelper.getReadableDatabase());
-                Toast.makeText(NavigationActivity.this, "size" + students.size() + "first name " + students.get(0).StudentName, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(NavigationActivity.this,StudentDataView.class));
                 break;
         }
 
